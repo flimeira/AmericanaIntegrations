@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: americana-integration
+  
+  # RabbitMQ Configuration
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 1000
+          max-attempts: 3
+          max-interval: 10000
+          multiplier: 2.0
+
+  # JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# Supabase Configuration
+supabase:
+  delivery:
+    url: ${DELIVERY_SUPABASE_URL}
+    key: ${DELIVERY_SUPABASE_KEY}
+  restaurant:
+    url: ${RESTAURANT_SUPABASE_URL}
+    key: ${RESTAURANT_SUPABASE_KEY}
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.americana: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO 
