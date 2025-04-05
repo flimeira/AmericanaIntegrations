@@ -10,8 +10,11 @@ Serviço de integração entre as bases de dados do Americana Delivery e America
 - Supabase
 - Maven
 - Lombok
+- Docker
 
 ## Configuração do Ambiente
+
+### Opção 1: Desenvolvimento Local
 
 1. Instale o Java 17
 2. Instale o Maven
@@ -22,13 +25,33 @@ Serviço de integração entre as bases de dados do Americana Delivery e America
    - `SUPABASE_RESTAURANT_URL`: URL do Supabase do Restaurant
    - `SUPABASE_RESTAURANT_KEY`: Chave do Supabase do Restaurant
 
+### Opção 2: Usando Docker
+
+1. Instale o Docker e Docker Compose
+2. Copie o arquivo `.env.example` para `.env` e configure as variáveis
+3. Execute o comando:
+```bash
+docker-compose up -d
+```
+
 ## Executando o Projeto
+
+### Desenvolvimento Local
 
 1. Clone o repositório
 2. Configure as variáveis de ambiente
 3. Execute o comando:
 ```bash
 mvn spring-boot:run
+```
+
+### Docker
+
+1. Clone o repositório
+2. Configure o arquivo `.env`
+3. Execute:
+```bash
+docker-compose up -d
 ```
 
 ## Endpoints da API
@@ -54,6 +77,13 @@ O serviço utiliza logs para monitoramento das operações. Os principais evento
 - Processamento de pedidos
 - Erros durante a sincronização
 - Erros durante o processamento
+
+### RabbitMQ Management
+
+Quando usando Docker, você pode acessar o painel de gerenciamento do RabbitMQ em:
+- URL: http://localhost:15672
+- Usuário: guest
+- Senha: guest
 
 ## Contribuição
 

@@ -4,10 +4,10 @@ spring:
   
   # RabbitMQ Configuration
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
     listener:
       simple:
         retry:
@@ -16,6 +16,10 @@ spring:
           max-attempts: 3
           max-interval: 10000
           multiplier: 2.0
+    order:
+      queue: order.queue
+      exchange: order.exchange
+      routing-key: order.routing.key
 
   # JPA Configuration
   jpa:
@@ -30,22 +34,24 @@ spring:
 # Supabase Configuration
 supabase:
   delivery:
-    url: ${DELIVERY_SUPABASE_URL}
-    key: ${DELIVERY_SUPABASE_KEY}
+    url: ${SUPABASE_DELIVERY_URL}
+    key: ${SUPABASE_DELIVERY_KEY}
   restaurant:
-    url: ${RESTAURANT_SUPABASE_URL}
-    key: ${RESTAURANT_SUPABASE_KEY}
+    url: ${SUPABASE_RESTAURANT_URL}
+    key: ${SUPABASE_RESTAURANT_KEY}
 
 # Server Configuration
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   servlet:
-    context-path: /api
+    context-path: ${CONTEXT_PATH:/api}
 
 # Logging Configuration
 logging:
   level:
     root: INFO
+    com.americana.integration: DEBUG
+    org.springframework.amqp: INFO
     com.americana: DEBUG
     org.springframework.web: INFO
     org.hibernate: INFO 
