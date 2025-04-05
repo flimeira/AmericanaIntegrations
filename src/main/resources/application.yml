@@ -4,10 +4,10 @@ spring:
   
   # RabbitMQ Configuration
   rabbitmq:
-    host: ${RABBITMQ_HOST:localhost}
-    port: ${RABBITMQ_PORT:5672}
-    username: ${RABBITMQ_USERNAME:guest}
-    password: ${RABBITMQ_PASSWORD:guest}
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
     listener:
       simple:
         retry:
@@ -17,34 +17,37 @@ spring:
           max-interval: 10000
           multiplier: 2.0
     order:
-      queue: order.queue
-      exchange: order.exchange
-      routing-key: order.routing.key
+      queue: americana.orders
+      exchange: americana.exchange
+      routing-key: americana.orders
 
-  # JPA Configuration
-  jpa:
+# JPA Configuration
+jpa:
+  hibernate:
+    ddl-auto: update
+  show-sql: true
+  properties:
     hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
 
 # Supabase Configuration
 supabase:
   delivery:
-    url: ${SUPABASE_DELIVERY_URL}
-    key: ${SUPABASE_DELIVERY_KEY}
+    url: https://zitdlgsiktyghnauhaxq.supabase.co
+    key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InppdGRsZ3Npa3R5Z2huYXVoYXhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwNTcxNDIsImV4cCI6MjA1NTYzMzE0Mn0.uyBo1tUIDMvgOoBNnOXNfzVjPv3WLHoLBb7wNiM24GA
   restaurant:
-    url: ${SUPABASE_RESTAURANT_URL}
-    key: ${SUPABASE_RESTAURANT_KEY}
+    url: https://bawostbfbkadpsggljfm.supabase.co
+    key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhd29zdGJmYmthZHBzZ2dsamZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAwODAxNzYsImV4cCI6MjA1NTY1NjE3Nn0.-40P5GnJCweyONWNXASLcZAZ7DM7ZA8d8X401Zy5L6o
 
 # Server Configuration
 server:
-  port: ${SERVER_PORT:8080}
+  port: 8080
   servlet:
-    context-path: ${CONTEXT_PATH:/api}
+    context-path: /api
+  tomcat:
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
 
 # Logging Configuration
 logging:
@@ -53,5 +56,6 @@ logging:
     com.americana.integration: DEBUG
     org.springframework.amqp: INFO
     com.americana: DEBUG
-    org.springframework.web: INFO
-    org.hibernate: INFO 
+    org.springframework.web: DEBUG
+    org.hibernate: INFO
+    org.springframework.security: DEBUG 

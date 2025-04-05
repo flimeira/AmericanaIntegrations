@@ -1,5 +1,6 @@
 package com.americana.integration.service;
 
+import com.americana.integration.config.RabbitMQConfig;
 import com.americana.integration.model.Order;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,7 @@ public class OrderConsumer {
 
     private final OrderIntegrationService orderIntegrationService;
 
-    @RabbitListener(queues = "${rabbitmq.order.queue}")
+    @RabbitListener(queues = RabbitMQConfig.ORDER_QUEUE)
     public void consumeOrder(Order order) {
         try {
             log.info("Recebido pedido {} para processamento", order.getId());
